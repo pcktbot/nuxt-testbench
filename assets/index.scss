@@ -1,0 +1,7 @@
+@use '_colors.scss';
+@use '_unsorted.scss';;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  color: red;
+}
