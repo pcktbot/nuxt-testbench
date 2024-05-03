@@ -43,7 +43,7 @@ const initResize: (event: MouseEvent) => void = (event) => {
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   display: flex;
   height: 100dvh;
@@ -58,5 +58,11 @@ const initResize: (event: MouseEvent) => void = (event) => {
   cursor: col-resize;
   background-color: #000;
   width: 5px;
+  position: relative;
+  &::before, &::after {
+    position: absolute;
+    height: 50px;
+    width: 5px;
+  }
 }
 </style>
