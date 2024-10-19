@@ -3,8 +3,11 @@
     <ResizableColumns>
       <template #left>
         <ScrollContainer class="p-1 min-md border primary-border">
-
-
+          <ContentContainer class="relative border primary-border">
+            <Modal class="absolute top left" :visible="true">
+              <SettingsMenu></SettingsMenu>
+            </Modal>
+          </ContentContainer>
         </ScrollContainer>
       </template>
       <template #right>
@@ -31,6 +34,27 @@
 .relative {
   position: relative;
 }
+.top {
+  top: 0;
+}
+.left {
+  left: 0;
+}
+.right {
+  right: 0;
+}
+.bottom {
+  bottom: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 .h-100 {
   height: 100dvh;
 }
