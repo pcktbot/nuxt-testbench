@@ -1,23 +1,25 @@
 <template>
   <div class="container">
     <div class="column" ref="leftColumn" @mousedown="initResize" style="width: 50dvw;">
-      Left Column (Drag to resize) {{ leftColumn }}
+      <slot name="left" />
     </div>
     <div class="resizer" @mousedown.prevent="initResize"></div>
     <div class="column" style="flex-grow: 1;">
-      Right Column
+      <slot name="right" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 interface ColumnElement extends HTMLElement {
   offsetWidth: number;
 }
 
 const leftColumn = ref<ColumnElement | null>(null);
+const leftColumnWidth = ref<string|null>(null);
+const LOCAL_STORAGE_KEY = 'ResizableColumns.leftColumnWidth';
 
 const initResize: (event: MouseEvent) => void = (event) => {
   if (!leftColumn.value) return;
@@ -29,6 +31,11 @@ const initResize: (event: MouseEvent) => void = (event) => {
     const currentWidth = startWidth + (moveEvent.clientX - startX);
     if (leftColumn.value) {
       leftColumn.value.style.width = `${currentWidth}px`;
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, `${currentWidth}px`);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -40,29 +47,44 @@ const initResize: (event: MouseEvent) => void = (event) => {
   window.addEventListener('mousemove', doResize);
   window.addEventListener('mouseup', stopResize);
 };
+
+onMounted(() => {
+  try {
+    const savedWidth = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedWidth) {
+      leftColumnWidth.value = savedWidth;
+      if (leftColumn.value) {
+        leftColumn.value.style.width = savedWidth;
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss">
+:root {
+  --stroke: 5px;
+}
+$stroke: 5px;
 .container {
+  position: relative;
+  width: 100%;
   display: flex;
-  height: 100dvh;
-  background-color: #f8f9fa;
+  height: 100%;
+  border: 1px solid red;
 }
 .column {
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #dee2e6;
+  // border: 1px solid #dee2e6;
 }
 .resizer {
   cursor: col-resize;
-  background-color: #000;
-  width: 5px;
+  background-color: red;
+  width: $stroke;
   position: relative;
-  &::before, &::after {
-    position: absolute;
-    height: 50px;
-    width: 5px;
-  }
 }
 </style>

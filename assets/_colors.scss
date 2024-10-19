@@ -1,0 +1,16 @@
+$primary: red;
+
+.primary {
+  color: $primary;
+  &-border {
+    border-color: $primary;
+  }
+  &-bg {
+    background-color: $primary;
+  }
+}
+.secondary {}
+.tertiary {}
+.danger {}
+.warning {}
+.success {}
