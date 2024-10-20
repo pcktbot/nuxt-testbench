@@ -4,7 +4,7 @@
       <template #left>
         <ScrollContainer class="p-1 min-md border primary-border">
           <ContentContainer class="relative border primary-border">
-            <Modal class="absolute top left" :visible="true">
+            <Modal class="absolute top left" :visible="true" :delay="20">
               <SettingsMenu></SettingsMenu>
             </Modal>
           </ContentContainer>
@@ -17,6 +17,12 @@
   </div>
 </template>
 
+
+<script setup lang="ts">
+
+
+
+</script>
 <style lang="scss">
 .min-md {
   min-width: 400px;

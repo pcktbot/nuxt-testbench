@@ -25,9 +25,24 @@ const props = defineProps<{
 
 
 
+watch(
+  () => props.visible,
+  (value) => {
+    if (value) {
+      setTimeout(() => {
+        toggleVisibile();
+      }, props.delay);
+    }
+  }
+)
 const emit = defineEmits(['visible',
                           'submit',
                           'close'   ]);
+
+
+const toggleVisibile = () => {
+  emit('visible');
+};
 
 const handleSubmit = () => {
   emit('submit');
@@ -35,6 +50,7 @@ const handleSubmit = () => {
 
 const handleClose = () => {
   emit('close');
+  toggleVisibile();
 };
 
 

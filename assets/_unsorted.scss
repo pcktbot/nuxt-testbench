@@ -11,11 +11,14 @@ h1 {
   border-style: solid;
 }
 .btn {
-  min-height: 50px;
-  padding: 0.5rem;
+  min-height: 35px;
+  padding: 0.25rem;
+  border-radius: 0;
+}
+.ghost {
+  background-color: transparent !important;
 }
 .card {
-  border: 1px solid red;
   max-width: 800px;
   margin: 0 auto;
   h1 {
